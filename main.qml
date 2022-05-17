@@ -19,7 +19,7 @@ Window {
 
         contentItem: Rectangle {
             width: _progressBar.visualPosition * parent.width
-            color: "blue"
+            color: "red"
         }
 
         onValueChanged: {
