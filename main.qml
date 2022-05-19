@@ -1,31 +1,25 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
 
 Window {
-    width: 640
-    height: 480
+    width: 960
+    height: 540
     visible: true
     title: qsTr("Project Black Dragonfly")
 
     readonly property int tickPerSecond: 50
 
-    ProgressBar {
-        id: _progressBar
-        from: 0
-        to: 2000
-        value: 0
-        height: 15
-
-        contentItem: Rectangle {
-            width: _progressBar.visualPosition * parent.width
-            color: "red"
+    Row {
+        Player {
+            id: _dummy
         }
 
-        onValueChanged: {
-            value %= to;
+        Player {
+            id: _player
+            onHit: {
+                _dummy.health -= 10;
+            }
         }
-
     }
 
     Timer {
@@ -34,7 +28,7 @@ Window {
         running: true
 
         onTriggered: {
-            _progressBar.value += interval;
+            _player.progress(interval);
         }
     }
 }
