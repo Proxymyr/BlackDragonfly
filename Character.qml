@@ -2,64 +2,66 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 Item {
-    id: _self
-    implicitWidth: _column.implicitWidth
-    implicitHeight: _column.implicitHeight
+  id: _self
+  implicitWidth: _column.implicitWidth
+  implicitHeight: _column.implicitHeight
 
-    property alias health: _progressBarHealth.value
+  property int componentWidth: 150
 
-    signal hit()
-    signal death()
+  property alias health: _progressBarHealth.value
 
-    onHealthChanged: {
-        if(health <= 0) {
-            death();
-        }
+  signal hit()
+  signal death()
+
+  onHealthChanged: {
+    if(health <= 0) {
+      death();
+    }
+  }
+
+  Column {
+    id: _column
+
+    ProgressBar {
+      id: _progressBarHealth
+      from: 0
+      to: 100
+      value: 100
+      height: 15
+
+      contentItem: Rectangle {
+        width: _progressBarHealth.visualPosition * parent.width
+        color: "red"
+      }
+
+      onValueChanged: {
+        value %= to;
+      }
     }
 
-    Column {
-        id: _column
+    ProgressBar {
+      id: _progressBarAction
+      from: 0
+      to: 2000
+      value: 0
+      height: 15
 
-        ProgressBar {
-            id: _progressBarHealth
-            from: 0
-            to: 100
-            value: 100
-            height: 15
+      contentItem: Rectangle {
+        width: _progressBarAction.visualPosition * parent.width
+        color: "yellow"
+      }
 
-            contentItem: Rectangle {
-                width: _progressBarHealth.visualPosition * parent.width
-                color: "red"
-            }
-
-            onValueChanged: {
-                value %= to;
-            }
+      onValueChanged: {
+        //La barre est remplie
+        if(value >= to) {
+          value %= to;
+          _self.hit();
         }
-
-        ProgressBar {
-            id: _progressBarAction
-            from: 0
-            to: 2000
-            value: 0
-            height: 15
-
-            contentItem: Rectangle {
-                width: _progressBarAction.visualPosition * parent.width
-                color: "yellow"
-            }
-
-            onValueChanged: {
-                //La barre est remplie
-                if(value >= to) {
-                    value %= to;
-                    _self.hit();
-                }
-            }
-        }
+      }
     }
+  }
 
-    function progress(interval) {
-        _progressBarAction.value += interval;
-    }
+  function progress(interval) {
+    _progressBarAction.value += interval;
+  }
 }

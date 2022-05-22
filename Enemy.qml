@@ -1,9 +1,9 @@
 import QtQuick 2.15
 
 Character {
-    id: _enemy
+  id: _enemy
 
-    onDeath: {
-        console.log("RIP");
-    }
+  onDeath: {
+    console.log("RIP");
+  }
 }
