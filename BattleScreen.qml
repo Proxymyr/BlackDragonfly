@@ -12,8 +12,8 @@ Item {
 
     Loader {
       id: _enemyLoader
-      //width: enemy.width
-      //height: enemy.height
+      width: _player.width
+      height: _player.height
     }
 
     Player {

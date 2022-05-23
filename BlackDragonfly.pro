@@ -9,6 +9,7 @@ SOURCES += \
 
 RESOURCES += \
     battle.qrc \
+    inventory/inventory.qrc \
     qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

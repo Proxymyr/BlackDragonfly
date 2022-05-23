@@ -4,6 +4,6 @@ Character {
   id: _enemy
 
   onDeath: {
-    console.log("RIP");
+    PlayerData.golds++;
   }
 }

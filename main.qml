@@ -1,6 +1,8 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
+import Qt.labs.settings 1.1
 
 Window {
   width: 1280
@@ -19,13 +21,33 @@ Window {
       bottom: parent.bottom
     }
 
-    Column {
-
-    }
-
     Rectangle {
       anchors.fill: parent
       color: "beige"
+    }
+
+    Column {
+        id: _colSidebar
+
+        anchors.centerIn: parent
+
+        Button {
+            id: _buttonBattleScreen
+            text: "Battle"
+
+            onClicked: {
+                _stackLayoutScene.currentIndex = 0;
+            }
+        }
+
+        Button {
+            id: _buttonInventory
+            text: "Inventory"
+
+            onClicked: {
+                _stackLayoutScene.currentIndex = 1;
+            }
+        }
     }
   }
 
@@ -39,12 +61,16 @@ Window {
     }
 
     StackLayout {
+      id: _stackLayoutScene
       anchors.fill: parent
 
       BattleScreen {
         id: _battleScreen
       }
 
+      InventoryScreen {
+          id: _inventoryScreen
+      }
 
     }
   }
@@ -58,4 +84,19 @@ Window {
       _battleScreen.tick(interval);
     }
   }
+
+  //TODO : Save data
+  /*Component.onCompleted: {
+    PlayerData = _settings.playerData;
+  }
+
+  Component.onDestruction: {
+      _settings.playerData = PlayerData;
+  }
+
+  Settings {
+    id: _settings
+
+    property PlayerData playerData: PlayerData
+  }*/
 }
