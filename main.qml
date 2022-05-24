@@ -85,18 +85,15 @@ Window {
     }
   }
 
-  //TODO : Save data
-  /*Component.onCompleted: {
-    PlayerData = _settings.playerData;
-  }
-
-  Component.onDestruction: {
-      _settings.playerData = PlayerData;
+  Component.onCompleted: {
+      PlayerData.golds = _settings.golds;
+      PlayerData.exp = _settings.exp;
   }
 
   Settings {
     id: _settings
 
-    property PlayerData playerData: PlayerData
-  }*/
+    property int golds: PlayerData.golds
+    property int exp: PlayerData.exp
+  }
 }
